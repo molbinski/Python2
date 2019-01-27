@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+import paramiko
+
+user = 'tester'
+haslo = 'tester'
+ip = '127.0.0.1'
+
+serv=paramiko.SSHClient()
+type(serv)
+
+serv.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+serv.connect(ip , username = user , password = haslo)
+
+
+a,b,c= serv.exec_command('cat /etc/passwd')
+wynik = b.read()
+
+if 'myownuser' in wynik:
+    print('tak')
+else:
+    print('nie ma usera myownuser')
+
+if 'tester' in wynik:
+    print('jest uzytkownik tester')
+else:
+    print('nie ma takiego usera')
